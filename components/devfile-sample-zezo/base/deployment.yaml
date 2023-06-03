@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: devfile-sample-zezo
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: devfile-sample-zezo
+    app.kubernetes.io/part-of: my-app
+  name: devfile-sample-zezo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: nodejs-app
+      app.kubernetes.io/instance: devfile-sample-zezo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodejs-app
+        app.kubernetes.io/instance: devfile-sample-zezo
+    spec:
+      containers:
+      - image: quay.io/redhat-user-workloads-stage/jhutar-tenant/my-app/devfile-sample-zezo@sha256:cb4bf6512354bd207f294373641d353dea9aba1e7ba8bd4a159be54ce6f5e877
+        name: my-nodejs
+        ports:
+        - containerPort: 3001
+          name: http
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
